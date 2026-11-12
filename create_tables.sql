@@ -241,7 +241,9 @@ CREATE TABLE dbo.[Case] (
     CONSTRAINT PK_Case PRIMARY KEY (CaseNumber),
     CONSTRAINT FK_Case_Incident FOREIGN KEY (IncidentNumber) REFERENCES dbo.Incident (IncidentNumber),
     CONSTRAINT FK_Case_Officer FOREIGN KEY (OfficerID) REFERENCES dbo.Officer (EmployeeID),
-    CONSTRAINT CK_Case_Dates CHECK (CloseDate >= OpenDate)
+    CONSTRAINT CK_Case_Dates CHECK (CloseDate >= OpenDate),
+    -- Business rule 11: an incident results in zero or one case
+    CONSTRAINT UQ_Case_IncidentNumber UNIQUE (IncidentNumber)
 );
 GO
 
